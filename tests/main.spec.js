@@ -2,37 +2,56 @@
 /* eslint no-undef: "error" */
 
 import { expect } from 'chai';
-import { calc } from '../src/app';
+import { calc, Calculator } from '../src/app';
+
+const calculator = new Calculator();
 
 describe('Calc', () => {
-  before(() => null);
+  before(() => calculator);
   after(() => null);
   beforeEach(() => null);
   afterEach(() => null);
 
   // smoke tests
   describe('Smoke tests', () => {
-    context('Basic Operators', () => {
+    context('Library', () => {
       it('shoud exist the calc lib', () => {
         expect(calc).to.exist;
       });
+      it('should exist calc method', () => {
+        expect(calc).to.be.a('function');
+      });
     });
 
-    context.skip('Case 2', () => {
-      it('should be an array', () => {
-
+    context('Basic Operators', () => {
+      it('should get 5 when plus 2 to 3', () => {
+        expect(calc('sum', 2, 3)).to.equal(5);
       });
-      it('should have a size of 4 when push another value to the array', () => {
-
+      it('should get 5 when make 10 minus 5', () => {
+        expect(calc('sub', 10, 5)).to.equal(5);
       });
-      it('should remove the value 3 when use pop in the array', () => {
-
+      it('should get 20 when make 5 times 4', () => {
+        expect(calc('mult', 5, 4)).to.equal(20);
       });
-      it('should return true when pop 3 from the array', () => {
-
+      it('should get 4 when make 20 divided by 5', () => {
+        expect(calc('div', 20, 5)).to.equal(4);
       });
-      it('should have a size of 2 when pop value from the array', () => {
-
+      it('should get null when I dont pass an operator', () => {
+        expect(calc(2, 3)).to.equal(null);
+      });
+      it('should get null when I pass an invalid operator', () => {
+        expect(calc('exp', 2, 3)).to.equal(null);
+      });
+      it('should get -4 when make 5 minus 9', () => {
+        expect(calc('sub', 5, 9)).to.equal(-4);
+      });
+      it('should get error Div/0 when make 10 divided by 0', () => {
+        // https://tips.tutorialhorizon.com/2017/09/08/mochachai-assert-thrown-error/
+        expect(() => calculator.div(10, 0)).to.throw(TypeError, 'by zero');
+      });
+      it('should get code error 69 when make 10 divided by 0', () => {
+        // expect(calc('div', 10, 0)).to.throw(TypeError).with.property('code', 69);
+        expect(() => calculator.div(10, 0)).to.throw(TypeError).with.property('code', 69);
       });
     });
   });
