@@ -2,6 +2,7 @@
 /* eslint no-undef: "error" */
 
 import { expect } from 'chai';
+// eslint-disable-next-line import/named
 import { calc, Calculator } from '../src/app';
 
 const calculator = new Calculator();
@@ -20,6 +21,12 @@ describe('Calc', () => {
       });
       it('should exist calc method', () => {
         expect(calc).to.be.a('function');
+      });
+      it('shoud exist the calculator lib', () => {
+        expect(calculator).to.exist;
+      });
+      it('should exist div method calculator', () => {
+        expect(calculator.div).to.be.a('function');
       });
     });
 
