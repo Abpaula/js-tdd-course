@@ -7,9 +7,25 @@
     "build": "./node_modules/.bin/webpack --colors --progress",
     "watch": "npm run build -- --watch",
     "lint": "./node_modules/.bin/eslint src/*.js",
-    "prepush": "npm run lint",
+    "prepush": "npm run lint && npm run test:coverage",
     "test": "./node_modules/mocha/bin/mocha --require babel-core/register --recursive ./tests/**/*.spec.js",
-    "test:tdd": "./node_modules/mocha/bin/mocha --require babel-core/register --recursive ./tests/**/*.spec.js --watch"
+    "test:tdd": "./node_modules/mocha/bin/mocha --require babel-core/register --recursive ./tests/**/*.spec.js --watch",
+    "test:coverage": "nyc --all npm test"
+  },
+  "nyc": {
+    "functions": 80,
+    "lines": 80,
+    "check-coverage": true,
+    "reporter": [
+      "text",
+      "html"
+    ],
+    "exclude": [
+      "**/*.spec.js",
+      "dist",
+      "coverage",
+      "webpack.config.js"
+    ]
   },
   "author": "Antenor B Paula <antenor.borges@gmail.com>",
   "license": "MIT",
@@ -24,6 +40,7 @@
     "eslint-plugin-import": "^2.14.0",
     "html-webpack-plugin": "^3.2.0",
     "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
     "terser-webpack-plugin": "^1.2.1",
     "uglifyjs-webpack-plugin": "^2.1.1",
     "webpack": "^4.29.0",
